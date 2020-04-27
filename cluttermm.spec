@@ -1,18 +1,25 @@
+#
+# Conditional build:
+%bcond_without	static_libs
+
 Summary:	C++ wrappers for Clutter library
 Summary(pl.UTF-8):	Obudowanie C++ do biblioteki Clutter
 Name:		cluttermm
 Version:	1.17.3
-Release:	2
+Release:	3
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/cluttermm/1.17/%{name}-%{version}.tar.xz
 # Source0-md5:	429fa3a4ee1fad9ca2bc46b174165dfd
 URL:		https://developer.gnome.org/cluttermm/
 BuildRequires:	atkmm-devel >= 2.22.2
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake >= 1:1.9
 BuildRequires:	clutter-devel >= 1.18.0
 # for examples
 BuildRequires:	gtkmm3-devel >= 3.10
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool >= 2:1.5
 BuildRequires:	mm-common >= 0.8
 BuildRequires:	pangomm-devel >= 2.27.1
 BuildRequires:	pkgconfig
@@ -60,7 +67,7 @@ Statyczna biblioteka cluttermm.
 Summary:	cluttermm API documentation
 Summary(pl.UTF-8):	Dokumentacja API cluttermm
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -74,10 +81,15 @@ Dokumentacja API cluttermm.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal} -I build
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--disable-silent-rules \
 	--enable-gtk-doc \
-	--enable-static \
+	%{?with_static_libs:--enable-static} \
 	--with-html-dir=%{_gtkdocdir}
 
 %{__make}
@@ -111,9 +123,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/cluttermm-1.0
 %{_pkgconfigdir}/cluttermm-1.0.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libcluttermm-1.0.a
+%endif
 
 %files apidocs
 %defattr(644,root,root,755)
