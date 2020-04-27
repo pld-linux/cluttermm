@@ -2,7 +2,7 @@ Summary:	C++ wrappers for Clutter library
 Summary(pl.UTF-8):	Obudowanie C++ do biblioteki Clutter
 Name:		cluttermm
 Version:	1.17.3
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/cluttermm/1.17/%{name}-%{version}.tar.xz
