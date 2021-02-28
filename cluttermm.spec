@@ -67,9 +67,7 @@ Statyczna biblioteka cluttermm.
 Summary:	cluttermm API documentation
 Summary(pl.UTF-8):	Dokumentacja API cluttermm
 Group:		Documentation
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 cluttermm API documentation.
